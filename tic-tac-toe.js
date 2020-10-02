@@ -1,8 +1,6 @@
 const key = 'tic-tac-toe-game-state';
-
 let currentPlayerSymbol = 'x';
 let squareValues = ['', '', '', '', '', '', '', '', ''];
-
 let gameStatus = "";
 
 function saveGameState() {
@@ -18,7 +16,9 @@ function saveGameState() {
 function loadGameState() {
     const savedState = window.localStorage.getItem(key);
     if (savedState === null) return;
+    
     const state = JSON.parse(savedState);
+    currentPlayerSymbol = state.currentPlayerSymbol;
     squareValues = state.squareValues;
     gameStatus = state.gameStatus;
 
@@ -34,20 +34,20 @@ function loadGameState() {
     if (gameStatus !== '') {
     document
         .getElementById('game-status-message')
-        .innerHTML = `Winner: ${gameStatus.toUpperCase()}`;
+        .innerText = `Winner: ${gameStatus.toUpperCase()}`;
     document
         .getElementById('new-game')
-        .diabled = false;
+        .disabled = false;
     document 
         .getElementById('give-up')
         .disabled = true;
     } else {
     document
         .getElementById('game-status-message')
-        .innerHTML = '';
+        .innerText = '';
     document
         .getElementById('new-game')
-        .diabled = true;
+        .disabled = true;
     document 
         .getElementById('give-up')
         .disabled = false;
