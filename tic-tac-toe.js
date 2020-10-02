@@ -101,10 +101,35 @@ document
             .innerHTML = '';
         }
         currentPlayerSymbol = 'x';
-    
+
         document
             .getElementById('new-game')
             .disabled = true;
         squareValues = ['', '', '', '', '', '', '', '', ''];
+        document
+            .getElementById("give-up")
+            .disabled = false;
     });
+
+    document
+        .getElementById("give-up")
+        .addEventListener("click", event => {
+            if (currentPlayerSymbol === "x") {
+                gameStatus = "o";
+            } else {
+                gameStatus = "x";
+            }
+
+            document
+                .getElementById("game-status")
+                .innerText = `"Winner:" ${gameStatus.toLocaleUpperCase()}`;
+
+            document
+                .getElementById("give-up")
+                .disabled =true;
+            document
+                .getElementById("new-game")
+                .disabled = false;
+
+           })
 });
