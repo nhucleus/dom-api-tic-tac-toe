@@ -33,7 +33,7 @@ function loadGameState() {
     }
     if (gameStatus !== '') {
     document
-        .getElementById('game-status-message')
+        .getElementById('game-status')
         .innerText = `Winner: ${gameStatus.toUpperCase()}`;
     document
         .getElementById('new-game')
@@ -43,7 +43,7 @@ function loadGameState() {
         .disabled = true;
     } else {
     document
-        .getElementById('game-status-message')
+        .getElementById('game-status')
         .innerText = '';
     document
         .getElementById('new-game')
