@@ -1,7 +1,58 @@
+const key = 'tic-tac-toe-game-state';
+
 let currentPlayerSymbol = 'x';
 let squareValues = ['', '', '', '', '', '', '', '', ''];
 
 let gameStatus = "";
+
+function saveGameState() {
+    const state = {
+        currentPlayerSymbol,
+        squareValues,
+        gameStatus,
+    };
+
+    window.localStorage.setItem(key, JSON.stringify(state));
+}
+
+function loadGameState() {
+    const savedState = window.localStorage.getItem(key);
+    if (savedState === null) return;
+    const state = JSON.parse(savedState);
+    squareValues = state.squareValues;
+    gameStatus = state.gameStatus;
+
+    for (let i = 0; i < 9; i += 1) {
+        if (squareValues[i] !== '') {
+            const img = document.createElement('img');
+            img.src = `https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-${squareValues[i]}.svg`;
+            document
+            .getElementById(`square-${i}`)
+            .appendChild(img);
+        }
+    }
+    if (gameStatus !== '') {
+    document
+        .getElementById('game-status-message')
+        .innerHTML = `Winner: ${gameStatus.toUpperCase()}`;
+    document
+        .getElementById('new-game')
+        .diabled = false;
+    document 
+        .getElementById('give-up')
+        .disabled = true;
+    } else {
+    document
+        .getElementById('game-status-message')
+        .innerHTML = '';
+    document
+        .getElementById('new-game')
+        .diabled = true;
+    document 
+        .getElementById('give-up')
+        .disabled = false;
+    }
+}
 
 function checkGameStatus() {
 	for (let i = 0; i < 9; i += 3) {
@@ -62,6 +113,8 @@ function checkGameStatus() {
 
 
 window.addEventListener('DOMContentLoaded', () => {
+loadGameState();
+
 document
     .getElementById('tic-tac-toe-board')
     .addEventListener('click', (event) => {
@@ -86,6 +139,7 @@ document
         }
 
         checkGameStatus();
+        saveGameState();
     });
 
     document
@@ -109,6 +163,8 @@ document
         document
             .getElementById("give-up")
             .disabled = false;
+
+        saveGameState();
     });
 
     document
@@ -131,5 +187,6 @@ document
                 .getElementById("new-game")
                 .disabled = false;
 
+            saveGameState();
            })
 });
