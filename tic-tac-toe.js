@@ -53,6 +53,10 @@ function checkGameStatus() {
         document
             .getElementById("game-status")
             .innerText = `"Winner:" ${gameStatus.toLocaleUpperCase()}`;
+
+    document
+        .getElementById('new-game')
+        .disabled = false;
     }
 }
 
@@ -82,5 +86,25 @@ document
         }
 
         checkGameStatus();
+    });
+
+    document
+    .getElementById('new-game')
+    .addEventListener('click', () => {
+        gameStatus = '';
+        document
+            .getElementById('game-status')
+            .innerHTML = '';
+        for (let i = 0; i < 9; i += 1) {
+        document
+            .getElementById(`square-${i}`)
+            .innerHTML = '';
+        }
+        currentPlayerSymbol = 'x';
+    
+        document
+            .getElementById('new-game')
+            .disabled = true;
+        squareValues = ['', '', '', '', '', '', '', '', ''];
     });
 });
